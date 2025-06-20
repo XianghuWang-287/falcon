@@ -400,6 +400,11 @@ def _postprocess_cluster(
         The number of clusters after splitting on precursor m/z.
     """
     # No splitting needed if there are too few items in cluster.
+    if cluster_labels.shape[0] > 30000:
+        logger.warning("⚠️ Skipping finetuning for very large cluster of size %d", cluster_labels.shape[0])
+        cluster_labels.fill(0)
+        return 1
+
     if cluster_labels.shape[0] < min_samples:
         cluster_labels.fill(-1)
         return 0
