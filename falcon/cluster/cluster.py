@@ -638,6 +638,10 @@ def _postprocess_cluster(cluster_labels: np.ndarray, cluster_mzs: np.ndarray,
     int
         The number of clusters after splitting on precursor m/z.
     """
+    if cluster_labels.shape[0] > 30000:
+        logger.warning("⚠️ Skipping finetuning for very large cluster of size %d", cluster_labels.shape[0])
+        cluster_labels.fill(0)
+        return 1
     cluster_labels.fill(-1)
     # No splitting needed if there are too few items in cluster.
     # This seems to happen sometimes despite that DBSCAN requires a higher
