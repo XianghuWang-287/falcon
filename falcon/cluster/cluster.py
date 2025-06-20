@@ -401,7 +401,7 @@ def _postprocess_cluster(
     """
     # No splitting needed if there are too few items in cluster.
     if cluster_labels.shape[0] > 30000:
-        logger.warning("⚠️ Skipping finetuning for very large cluster of size %d", cluster_labels.shape[0])
+        #logger.warning("⚠️ Skipping finetuning for very large cluster of size %d", cluster_labels.shape[0])
         cluster_labels.fill(0)
         return 1
 
